@@ -48,12 +48,23 @@ export const SignIn = async (req, res, next) => {
     );
     const { password: pass, ...rest } = validUser._doc;
 
-    res.cookie("access_token", token, {
-      httpOnly: true,
-      secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    }).json({token, user: rest})
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .json({ token, user: rest });
   } catch (error) {
-    next(error)
+    next(error);
+  }
+};
+
+export const SignOut = async (req, res, next) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json("successfully logout");
+  } catch (error) {
+    next(error);
   }
 };
