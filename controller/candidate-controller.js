@@ -37,9 +37,9 @@ export const GetCandidates = async (req, res, next) => {
     try {
       const { id } = req.params;
   
-      if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ msg: "Invalid candidate ID" });
-      }
+      // if (!mongoose.Types.ObjectId.isValid(id)) {
+      //   return res.status(400).json({ msg: "Invalid candidate ID" });
+      // }
   
       const candidate = await Candidate.findByIdAndDelete(id);
   

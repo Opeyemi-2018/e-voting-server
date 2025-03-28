@@ -88,13 +88,28 @@ export const GenerateUniqueNumber = async (req, res, next) => {
 
 export const GetUniqueNumber = async (req, res, next) => {
   try {
-    const count = await UniqueNumber.countDocuments();
+    const uniqueNumbers = await UniqueNumber.find(); 
+    const count = uniqueNumbers.length; 
+
     res.status(200).json({
       success: true,
-      count
+      count,
+      uniqueNumbers, 
     });
   } catch (error) {
-    console.error("Error getting count:", error);
-    return next(errorHandler(500, "Error getting numbers count"));
+    console.error("Error getting unique numbers:", error);
+    return next(errorHandler(500, "Error getting unique numbers"));
+  }
+};
+
+export const DeleteUniqueNumber = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await UniqueNumber.findByIdAndDelete(id);
+    res.status(200).json({ success: true, message: "Number deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting number:", error);
+    return next(errorHandler(500, "Error deleting number"));
   }
 }
+
