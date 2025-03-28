@@ -85,3 +85,16 @@ export const GenerateUniqueNumber = async (req, res, next) => {
     return next(errorHandler(500, "Internal server error"));
   }
 };
+
+export const GetUniqueNumber = async (req, res, next) => {
+  try {
+    const count = await UniqueNumber.countDocuments();
+    res.status(200).json({
+      success: true,
+      count
+    });
+  } catch (error) {
+    console.error("Error getting count:", error);
+    return next(errorHandler(500, "Error getting numbers count"));
+  }
+}

@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
-import userAuth from "./routes/auth-route.js";
-import uniqueNumber from "./routes/unique-number-route.js"
+import userAuthRoute from "./routes/auth-route.js";
+import uniqueNumberRoute from "./routes/unique-number-route.js"
+import candidateRoute from "./routes/candidate-route.js"
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -27,8 +28,9 @@ mongoose.connect(process.env.DB_URL).then(() => {
   });
 });
 
-app.use("/api/auth", userAuth);
-app.use("/api/unique-number", uniqueNumber);
+app.use("/api/auth", userAuthRoute);
+app.use("/api/unique-number", uniqueNumberRoute);
+app.use("/api/candidate", candidateRoute);
 
 app.use((err, res) => {
   const statusCode = err.statusCode || 500;
