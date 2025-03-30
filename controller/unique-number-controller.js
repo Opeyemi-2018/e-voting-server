@@ -102,6 +102,24 @@ export const GetUniqueNumber = async (req, res, next) => {
   }
 };
 
+export const VerifyUniqueID = async (req, res, next) => {
+  try {
+    const { voterID } = req.body;
+
+    const voter = await UniqueNumber.findOne({ uniqueNumber: voterID, used: false });
+
+    if (!voter) {
+      return res.status(400).json({ success: false, message: "Invalid or already used voter ID" });
+    }
+
+    res.status(200).json({ success: true, message: "Voter ID verified" });
+  } catch (error) {
+    console.error("Error verifying voter:", error);
+    return next(errorHandler(500, "Error verifying voter ID"));
+  }
+};
+
+
 export const DeleteUniqueNumber = async (req, res, next) => {
   try {
     const { id } = req.params;

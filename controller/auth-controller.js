@@ -2,18 +2,15 @@ import bcrypt from "bcryptjs";
 import { User } from "../models/user-model.js";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
-
 export const SignUp = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ msg: "all field require" });
   }
-
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     return res.status(400).json({ msg: "email already exist" });
   }
-
   try {
     const hashedPassword = bcrypt.hashSync(password, 10);
     const newUser = new User({
