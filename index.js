@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import userAuthRoute from "./routes/auth-route.js";
 import uniqueNumberRoute from "./routes/unique-number-route.js";
 import candidateRoute from "./routes/candidate-route.js";
+import voteRoute from "./routes/cast-vote-route.js";
 import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
@@ -37,6 +38,7 @@ mongoose.connect(process.env.DB_URL).then(() => {
 app.use("/api/auth", userAuthRoute);
 app.use("/api/unique-number", uniqueNumberRoute);
 app.use("/api/candidate", candidateRoute);
+app.use("/api/vote", voteRoute);
 
 app.use((err, res) => {
   const statusCode = err.statusCode || 500;

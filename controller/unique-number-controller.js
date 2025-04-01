@@ -102,6 +102,8 @@ export const GetUniqueNumber = async (req, res, next) => {
   }
 };
 
+
+
 export const VerifyUniqueID = async (req, res, next) => {
   try {
     const { voterID } = req.body;

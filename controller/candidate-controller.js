@@ -36,14 +36,10 @@ export const GetCandidates = async (req, res, next) => {
   export const DeleteCandidate = async (req, res, next) => {
     try {
       const { id } = req.params;
-  
-    
       const candidate = await Candidate.findByIdAndDelete(id);
-  
       if (!candidate) {
         return res.status(404).json({ msg: "Candidate not found" });
       }
-  
       res.status(200).json({ msg: "Candidate deleted successfully!" });
     } catch (error) {
       next(error);
