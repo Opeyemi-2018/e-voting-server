@@ -1,11 +1,9 @@
 import { Candidate } from "../models/candidate-model.js";
 import { errorHandler } from "../utils/error.js";
-
 export const CreateCandidate = async (req, res, next) => {
-    try {
+  try {
     const { name, category } = req.body;
-
-    if (!name || !category) {
+    if (!name || !category ) {
       return next(errorHandler(400, "Name and category are required"));
     }
 
@@ -15,34 +13,35 @@ export const CreateCandidate = async (req, res, next) => {
     }
 
     const newCandidate = new Candidate({ name, category });
+
     await newCandidate.save();
 
-    res.status(201).json({ msg: "Candidate added successfully!", candidate: newCandidate });
+    res
+      .status(201)
+      .json({ msg: "Candidate added successfully!", candidate: newCandidate });
   } catch (error) {
     next(error);
   }
-}
+};
 
 export const GetCandidates = async (req, res, next) => {
-    try {
-      const candidates = await Candidate.find().select("name category votes");
-      res.status(200).json(candidates);
-    } catch (error) {
-      next(error);
+  try {
+    const candidates = await Candidate.find().select("name category votes");
+    res.status(200).json(candidates);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const DeleteCandidate = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const candidate = await Candidate.findByIdAndDelete(id);
+    if (!candidate) {
+      return res.status(404).json({ msg: "Candidate not found" });
     }
-  };
-  
-  
-  export const DeleteCandidate = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const candidate = await Candidate.findByIdAndDelete(id);
-      if (!candidate) {
-        return res.status(404).json({ msg: "Candidate not found" });
-      }
-      res.status(200).json({ msg: "Candidate deleted successfully!" });
-    } catch (error) {
-      next(error);
-    }
-  };
-  
+    res.status(200).json({ msg: "Candidate deleted successfully!" });
+  } catch (error) {
+    next(error);
+  }
+};
