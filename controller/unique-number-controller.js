@@ -133,3 +133,21 @@ export const DeleteUniqueNumber = async (req, res, next) => {
   }
 }
 
+export const GetUsedUniqueNumbers = async (req, res, next) => {
+  try {
+    const usedNumbers = await UniqueNumber.find({ used: true });
+    const unUsedNumber = await UniqueNumber.find({ used: false });
+
+    res.status(200).json({
+      success: true,
+      usedNum: usedNumbers.length,
+      unUsedNum: unUsedNumber.length,
+      usedNumbers,
+    });
+  } catch (error) {
+    console.error("Error fetching used numbers:", error);
+    return next(errorHandler(500, "Error fetching used numbers"));
+  }
+};
+
+
