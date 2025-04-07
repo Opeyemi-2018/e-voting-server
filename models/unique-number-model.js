@@ -4,7 +4,7 @@ const uniqueSchema = new mongoose.Schema({
   uniqueNumber: { 
     type: String, 
     required: [true, "Number is required"],
-    unique: true,  // This creates an index automatically
+    unique: true, 
     trim: true,
     uppercase: true,
     validate: {
