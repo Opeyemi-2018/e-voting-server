@@ -15,7 +15,12 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use("/uploads", express.static("uploads"));
 
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://e-voting-admin.vercel.app",
+  "https://e-voting-client-zeta.vercel.app",
+];
 app.use(
   cors({
     origin: function (origin, callback) {
