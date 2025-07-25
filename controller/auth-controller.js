@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export const SignUp = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).json({ msg: "all field require" });
+    return res.status(400).json({ msg: "all field required" });
   }
   const existingUser = await User.findOne({ email });
   if (existingUser) {
