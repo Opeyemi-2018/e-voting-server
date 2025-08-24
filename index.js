@@ -20,8 +20,8 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  "https://e-voting-admin.vercel.app",
-  "https://e-voting-client-zeta.vercel.app",
+  process.env.CLIENT_URL,
+  process.env.ADMIN_URL, 
 ];
 app.use(
   cors({
