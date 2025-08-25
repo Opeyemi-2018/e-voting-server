@@ -49,11 +49,6 @@ export const studentSignIn = async (req, res, next) => {
     if (!isPasswordCorrect)
       return next(errorHandler(401, "Wrong matric number or password"));
 
-    // Check if already voted
-    // if (student.voted) {
-    //   return next(errorHandler(403, "You have already voted."));
-    // }
-
     const token = jwt.sign(
       { id: student._id, matricNumber: student.matricNumber },
       process.env.STUDENT_TOKEN,
